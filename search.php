@@ -4,10 +4,9 @@
     */
 
    // 0, 1 & 2. Initialize connect and use db
-   require_once( "include/login.php" );
+   require_once( "login_1.php" );
 
-   // for HTML table creation
-   require_once( "include/table.php" );
+   
 
    // initialize strings
    $likeClause = "";
@@ -24,16 +23,11 @@
             $_REQUEST['title'] );
    }
 */
-
-   $sql = sprintf( "
+$likeClause = " where name like '%pickle%' ";
+   $sql = sprintf( "select name from recipe "
 		,$likeClause );
 
-   if ( array_key_exists( 'debug',
-                          $_REQUEST ) )
-   {
-      printf( "SQL: <pre>%s</pre>",
-         $sql );
-   }
+   
 
    // 4. Execute the SQL statement
    $result = mysqli_query( $conn, $sql );
@@ -159,23 +153,7 @@
                   <p />
 
 <?php
-   $header = array( "Title",
-                    "Contents",
-                    "Category",
-                    "Action" );
-
-   PrintTableHeader( $header );
-
-   // 5. Display the results
-   while ( $row =
-              mysqli_fetch_assoc(
-                 $result ) )
-   {
-      $id = $row['rid'];
-      unset( $row['rid'] );
-
-      PrintTableRow( $id, $row );
-   }
+  
 
    // 6. Close database connection
    mysqli_close( $conn );  // "login.php" variable
